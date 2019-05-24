@@ -57,7 +57,7 @@ function generateZip(files, request, response) {
 }
 
 function start(request, response) {
-    serveFile("index.html", request, response);
+    serveFile("public/index.html", request, response);
 }
 
 function sync(request, response) {
@@ -65,9 +65,9 @@ function sync(request, response) {
 	form = new formidable.IncomingForm();
 	form.multiples = true;
 	if(request.method.toLowerCase() === "post") {
-// 		response.writeHead(200, {"Content-Type": "text/html"});
 		form.parse(request, function(error, fields, files) {
-    		var sourceFiles, destinationFiles, attemptedFileCount, file, scaleFactor;
+    		var sourceFiles, destinationFiles, attemptedFileCount, file, scaleFactor, linearScale;
+    		linearScale = (fields.syncType === 'scale');
     		// Even if only one file was uploaded, wrap it in an array for consistency
     		sourceFiles = (files.sourceFiles instanceof Array ? files.sourceFiles : [files.sourceFiles]);
     		// The finished/resynced files
@@ -76,7 +76,7 @@ function sync(request, response) {
             // They won't be added to destinationFiles, but they have been attempted
     		attemptedFileCount = 0;
     		// Compute the offset and slope for the timestamp adjustments
-    		scaleFactor = srtParse.computeScaleFactor(fields.sourceTimeA, fields.destinationTimeA, fields.sourceTimeB, fields.destinationTimeB);
+    		scaleFactor = srtParse.computeScaleFactor(fields.sourceTimeA, fields.destinationTimeA, linearScale ? fields.sourceTimeB : null, linearScale ? fields.destinationTimeB : null);
     		for(var i = 0; i < sourceFiles.length; i++) {
         		file = sourceFiles[i];
         		srtParse.Srt(file.path, file.name, function(error, srt) {
@@ -116,7 +116,7 @@ function notFound(request, response) {
 }
 
 exports.handle = {
-	'404': notFound,
-	'/sync': sync,
-	'/': start
+    start: start,
+    sync: sync,
+    notFound: notFound
 }

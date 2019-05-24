@@ -1,0 +1,65 @@
+@import "bootstrap.less";
+
+@dark: #222e35;
+@light: #e6e6e6;
+
+body {
+    text-align: center;
+    background-color: @dark;
+}
+
+h1 {
+    color: @light;
+}
+
+label {
+    text-align: left;
+}
+
+input[type="submit"] {
+    .btn;
+    .btn-large;
+    .btn-primary;
+}
+
+.form {
+    box-sizing: border-box;
+    padding: 10px;    
+    min-width: 320px;
+    width: 85%;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: @light;
+    box-shadow: black 0px 0px 5px;
+}
+
+fieldset[name="uploadGroup"] {
+    margin: 15px;
+}
+
+.syncTypeGroup {
+    input[type="radio"] {
+        display: none;
+    }
+    input[type="radio"] + label {
+        .btn;
+        .btn-large;
+        user-select: none;
+        transition: all ease 0.1s;
+    }
+    input[type="radio"]:checked + label {
+        .btn-success;
+    }
+}
+
+.syncTimeGroup {
+    p {
+        display: inline-block;
+    }
+    input {
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 1.5rem;
+        vertical-align: middle;
+    }
+}

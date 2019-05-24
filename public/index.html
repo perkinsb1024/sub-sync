@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Subtitle Sync</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Align multiple subtitle (.srt) files by a constant offset or linear scaling factor in one click. Like magic.">
+        <meta name="keywords" content="subtitles, sync, linear scaling, constant, offset, zip, batch, download, framerate">
+        <meta name="google-site-verification" content="8SAQlIW7quyc8soPRZU8h3KkPlo1L5bZEemWHyrS8rw" />
+        <link href="css/style.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <h1 class="title">Subtitle Sync</h1>
+        <div class="form">
+            <form enctype="multipart/form-data" method="post" action="/sync">
+                <fieldset name="syncTypeGroup" class="syncTypeGroup">
+                    <input type="radio" name="syncType" tabindex="0" class="syncTypeOffset" id="syncTypeOffset" value="offset">
+                    <label for="syncTypeOffset">Constant Offset</label>
+                    <input type="radio" name="syncType" tabindex="1" class="syncTypeScale" id="syncTypeScale" value="scale" checked="checked" />
+                    <label for="syncTypeScale">Linear Scaling</label>
+                </fieldset>
+                
+                <fieldset name="uploadGroup">
+                    <input type="file" name="sourceFiles" tabindex="2" multiple />
+                </fieldset>
+                
+                <fieldset name="syncTimeGroup" class="syncTimeGroup">
+                    <p class="sourceTime">
+                        <label>Source time #1</label>
+                        <input type="text" name="sourceTimeA" tabindex="3" placeholder="0:00:00.000" />
+                        <br>
+                        <label class="scaleOnly">Source time #2</label>
+                        <input type="text" name="sourceTimeB"  tabindex="5" class="scaleOnly" placeholder="0:00:00.000" />
+                    </p>
+                    <p class="destinationTime">
+                        <label>Correct time #1</label>
+                        <input type="text" name="destinationTimeA" tabindex="4" placeholder="0:00:00.000" />
+                        <br>
+                        <label  class="scaleOnly">Correct time #2</label>
+                        <input type="text" name="destinationTimeB" tabindex="6" class="scaleOnly" placeholder="0:00:00.000" />
+                    </p>
+                </fieldset>
+                
+                <fieldset name="submitGroup">
+                    <input type="submit" value="Sync" />
+                </fieldset>
+            </form>
+        </div>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
